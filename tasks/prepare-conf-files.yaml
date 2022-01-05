@@ -1,0 +1,22 @@
+- name: Wait for directory to be created
+  wait_for:
+    path: /opt/swag/swag
+
+- name: Check if sample file exists
+  stat:
+    path: /opt/swag/swag/nginx/proxy-confs/{{ item.file_prefix }}.subdomain.conf.sample
+  when: output | bool
+  register: sample_file
+
+- name: Copy and use sample config
+  copy:
+    src: /opt/swag/swag/nginx/proxy-confs/{{ item.file_prefix }}.subdomain.conf.sample
+    dest: /opt/swag/swag/nginx/proxy-confs/{{ item.file_prefix }}.subdomain.conf
+  when: sample_file | bool
+
+
+- name: Copy and use default template
+  copy:
+    src: /opt/swag/swag/nginx/proxy-confs/_template.subdomain.conf.sample
+    dest: /opt/swag/swag/nginx/proxy-confs/{{ item.file_prefix }}.subdomain.conf
+  when: not sample_file | bool

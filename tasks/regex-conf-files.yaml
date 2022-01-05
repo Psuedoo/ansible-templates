@@ -1,0 +1,10 @@
+- name: Replace default values with service values
+  replace:
+    path: "/opt/swag/swag/nginx/proxy-confs/{{ service.file_prefix }}.subdomain.conf"
+    regexp: "{{ item.regexp1 }}"
+    replace: "{{ item.replace }}"
+  with_items:
+    - { regexp1: 'server_name.*', replace: 'server_name {{ service.server_name }};'}
+    - { regexp1: 'set\s\$upstream_proto\w*.*', replace: 'set $upstream_proto {{ service.proto }};'}
+    - { regexp1: 'set\s\$upstream_app\w*.*', replace: 'set $upstream_app {{ service.app }};'}
+    - { regexp1: 'set\s\$upstream_port\w*.*', replace: 'set $upstream_port {{ service.port }};'}

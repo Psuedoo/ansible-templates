@@ -1,0 +1,10 @@
+- name: Stop swag
+  docker_compose:
+    project_src: /opt/swag/
+    state: absent
+
+- name: Start swag
+  docker_compose:
+    project_src: /opt/swag/
+    build: no
+  register: output

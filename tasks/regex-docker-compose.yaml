@@ -1,0 +1,9 @@
+- name: Replace docker-compose domain information
+  replace:
+    path: "/opt/swag/docker-compose.yml"
+    regexp: "{{ item.regexp1 }}"
+    replace: "{{ item.replace }}"
+  with_items:
+    - { regexp1: 'URL=<.*', replace: 'URL={{ url }}'}
+    - { regexp1: 'SUBDOMAINS=<.*', replace: 'SUBDOMAINS={{ subdomains }}'}
+    - { regexp1: 'EXTRA_DOMAINS=<.*', replace: 'EXTRA_DOMAINS={{ extra_domains }}'}

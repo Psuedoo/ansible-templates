@@ -1,0 +1,20 @@
+- name: Clone git repo
+  ansible.builtin.git:
+    repo: https://github.com/Psuedoo/blank-docker-compose
+    dest: /opt/services
+    force: yes
+
+
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: /opt/swag
+    state: directory
+    mode: '0755'
+
+- name: Move docker-compose file to /opt/swag
+  command: mv /opt/services/swag/docker-compose.yml /opt/swag
+
+- name: Start swag
+  docker_compose:
+    project_src: /opt/swag/
+  register: output

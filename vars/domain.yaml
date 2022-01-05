@@ -1,0 +1,3 @@
+url: your.domain # Add your main domain here 
+subdomains: adguard, dash # Add CSV for your subdomains. Should have matching records in `vars/proxy-confs.yaml`
+extra_domains: other.domain, guac.other.domain, files.other.domain # This is extra domains. Use this to manage other top level domain or it's subdomains

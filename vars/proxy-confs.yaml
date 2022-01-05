@@ -1,0 +1,29 @@
+services:
+
+- adguard: # Friendly name you can set 
+  file_prefix: adguard # Service name. Uses this to check if sample config exists.
+  server_name: adguard.* # This needs to be the same as your subdomain you're wanting to access. Should exist in `vars/domain.yaml`
+  proto: http # HTTP or HTTPS
+  app: adguard-server # Hostname or IP of service host. If hostname, make sure you add hostname to /etc/hosts
+  port: 8081 # Port the service is running on
+
+- dashmachine:
+  file_prefix: dashmachine
+  server_name: dash.*
+  proto: http
+  app: 192.168.2.10
+  port: 3000
+
+- guacamole:
+  file_prefix: guacamole
+  server_name: guac.other.domain
+  proto: http
+  app: 192.168.2.10
+  port: 8080
+
+- nextcloud:
+  file_prefix: nextcloud
+  server_name: files.other.domain
+  proto: http
+  app: nextcloud-hostname
+  port: 8000
