@@ -1,0 +1,19 @@
+---
+- name: Deploy swag
+  hosts: <ADD YOUR PROXY HOST HERE>
+  become: yes
+  vars_files:
+  - vars/proxy-confs.yaml
+  - vars/domain.yaml
+
+  tasks:
+  - import_tasks: tasks/install-docker.yaml
+  - import_tasks: tasks/start-swag.yaml
+  - include_tasks: tasks/prepare-conf-files.yaml
+    loop: "{{ services }}"
+  - import_tasks: tasks/regex-docker-compose.yaml
+  - include_tasks: tasks/regex-conf-files.yaml
+    loop: "{{ services }}"
+    loop_control:
+      loop_var: service
+  - import_tasks: tasks/restart-swag.yaml
